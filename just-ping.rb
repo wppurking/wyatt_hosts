@@ -1,36 +1,43 @@
 require "curb"
-#http://www.just-ping.com/index.php?vh=z-ecx.images-amazon.com&c=&s=ping%21&vtt=1351054032&vhost=_&c=
+
+# Thank to  
+#  hostsx https://code.google.com/p/hostsx/  
+#  MVPS http://winhelp2002.mvps.org/ 
+#  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
+puts "Need Block Ads? (y/n)"
+ads = gets.strip == 'y'
+
+puts "Need Ads!" if ads
 
 SITES = [
+	# amazon
 	"z-ecx.images-amazon.com",
 	"g-ecx.images-amazon.com",
 	"images-na.ssl-images-amazon.com",
 	#1
 	"drive.google.com",
+	"www.icloud.com",
 	#2
 	"lh1.googleusercontent.com",
+	"swcdn.apple.com",
 	#3
 	"ssl.gstatic.com",
+	"a1.mzstatic.com",
 	#4
 	"ngrams.googlelabs.com",
+	"a1.phobos.apple.com",
 	#5
-	"www.google-analytics.com"
+	"www.google-analytics.com",
+	"devimages.apple.com.edgekey.net"
 ]
 
 # 最终的 IP 地址
 IPS = {}
 
-def step1(site)
-	c = Curl.get("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
-	`mkdir -p ./sites` unless Dir.exist?('./sites')
-	open("sites/#{site}.html", 'w') { |f| f.write(c.body_str) }
-end
-
-
-def step2(site)
-	html = open("sites/#{site}.html")
+def just_ping(site)
+	html = Curl.get("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
 	# 新加坡
-	url = html.to_a.select { |line| line.include?("203.142.24.8") }[0]
+	url = html.body_str.lines.select { |line| line.include?("203.142.24.8") }[0]
 	url = url[(url.index("('") + 2)...url.index("',")]
 	c = Curl.get("http://www.just-ping.com/#{url}")
 	html = c.body_str
@@ -44,8 +51,7 @@ SITES.each do |site|
 	threads << Thread.new do
 		begin
 			puts "#{Thread.current} begin..."
-			step1(site)
-			IPS[site] = step2(site)
+			IPS[site] = just_ping site
 			puts "#{Thread.current} end..."
 		rescue Exception => e
 			puts e.message
@@ -64,9 +70,17 @@ threads.each { |t| t.join }
 
 
 
-google_template = open('google_template.ini').read
+base_template = open('template/base_template.ini').read
+google_template = open('template/google_template.ini').read
+apple_template = open('template/apple_template.ini').read
+
+# 组织广告
+mvps_tempalte = ads ? Curl.get('http://winhelp2002.mvps.org/hosts.txt').body_str.strip : ""
+
 IPS.each do |k, v|
+	next if v == ''
 	puts "#{k}		#{v}"
+	# google
 	if k.include?('drive')
 		google_template = google_template.gsub(/\$\{1\}/, v)
 	elsif k.include?('googleusercontent')
@@ -77,9 +91,25 @@ IPS.each do |k, v|
 		google_template = google_template.gsub(/\$\{4\}/, v)
 	elsif k.include?('analytics')
 		google_template = google_template.gsub(/\$\{5\}/, v)
+	# apple
+	elsif k.include?('icloud')
+		apple_template = apple_template.gsub(/\$\{1\}/, v)
+	elsif k.include?('swcdn')
+		apple_template = apple_template.gsub(/\$\{2\}/, v)
+	elsif k.include?('mzstatic')
+		apple_template = apple_template.gsub(/\$\{3\}/, v)
+	elsif k.include?('phobos')
+		apple_template = apple_template.gsub(/\$\{4\}/, v)
+	elsif k.include?('edgekey')
+		apple_template = apple_template.gsub(/\$\{5\}/, v)
+	# amazon
 	else
-		google_template << "#{v}	#{k}\n"
+		base_template << "#{v}	#{k}\n"
 	end
 end
 
 open("google_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(google_template) }
+open("apple_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(google_template) }
+
+all_in_one = base_template << "\n" << google_template << "\n" << apple_template << "\n" << "\n\n" << mvps_tempalte
+open("hosts.#{Time.now.to_i}.txt", 'w') { |io| io.write(all_in_one) }
