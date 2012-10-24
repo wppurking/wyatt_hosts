@@ -30,7 +30,9 @@ SITES = [
 	"a1.phobos.apple.com",
 	#5
 	"www.google-analytics.com",
-	"devimages.apple.com.edgekey.net"
+	"devimages.apple.com.edgekey.net",
+        #6
+        "metrics.apple.com"
 ]
 
 # 最终的 IP 地址
@@ -104,6 +106,8 @@ IPS.each do |k, v|
 		apple_template = apple_template.gsub(/\$\{4\}/, v)
 	elsif k.include?('edgekey')
 		apple_template = apple_template.gsub(/\$\{5\}/, v)
+	elsif k.include?('metrics')
+		apple_template = apple_template.gsub(/\$\{6\}/, v)
 	# amazon
 	else
 		base_template << "#{v}	#{k}\n"
