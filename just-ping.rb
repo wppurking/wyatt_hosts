@@ -1,6 +1,4 @@
 require "curb"
-require "forkmanager"
-require "pp"
 #http://www.just-ping.com/index.php?vh=z-ecx.images-amazon.com&c=&s=ping%21&vtt=1351054032&vhost=_&c=
 
 SITES = [
