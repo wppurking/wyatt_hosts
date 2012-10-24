@@ -1,9 +1,27 @@
 require "curb"
 
-# Thank to  
+# Thanks to  
 #  hostsx https://code.google.com/p/hostsx/  
 #  MVPS http://winhelp2002.mvps.org/ 
 #  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
+
+server = {
+# Shanghai
+"3" => "61.129.74.156",
+# Singapore
+"2" => "203.142.24.8",
+# HongKong
+"1" => "203.142.29.40"
+}
+
+puts "Chose server ip lcaltion: 1. HongKong(Very Good), 2. Singapore(Good), 3. Shanghai(Very Good but not always good)"
+SERVER_IP = server[gets.strip]
+unless SERVER_IP
+  puts "Please input 1/2"
+  exit
+end
+puts "use #{SERVER_IP}"
+
 puts "Need Block Ads? (y/n)"
 ads = gets.strip == 'y'
 
@@ -41,7 +59,7 @@ IPS = {}
 def just_ping(site)
 	html = Curl.get("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
 	# 新加坡
-	url = html.body_str.lines.select { |line| line.include?("203.142.24.8") }[0]
+	url = html.body_str.lines.select { |line| line.include?(SERVER_IP) }[0]
 	url = url[(url.index("('") + 2)...url.index("',")]
 	c = Curl.get("http://www.just-ping.com/#{url}")
 	html = c.body_str
