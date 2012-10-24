@@ -14,6 +14,8 @@ SITES = [
 	"z-ecx.images-amazon.com",
 	"g-ecx.images-amazon.com",
 	"images-na.ssl-images-amazon.com",
+	# github
+	"a248.e.akamai.net",
 	#1
 	"drive.google.com",
 	"www.icloud.com",
