@@ -6,6 +6,10 @@ require "curb"
 #  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
 
 server = {
+# Beijing
+"5" => "202.142.24.224",
+# Tokyo
+"4" => "54.248.93.127",
 # Shanghai
 "3" => "61.129.74.156",
 # Singapore
@@ -14,7 +18,13 @@ server = {
 "1" => "203.142.29.40"
 }
 
-puts "Chose server ip lcaltion: 1. HongKong(Very Good), 2. Singapore(Good), 3. Shanghai(Very Good but not always good)"
+puts """Chose server ip lcaltion:
+1. HongKong(Good)
+2. Singapore(Good)
+3. Shanghai(Very Good but not always good)
+4. Tokyo(Good)
+5. Beijing(Very Good but not always good)
+"""
 SERVER_IP = server[gets.strip]
 unless SERVER_IP
   puts "Please input 1/2"
@@ -133,7 +143,7 @@ IPS.each do |k, v|
 end
 
 open("google_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(google_template) }
-open("apple_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(google_template) }
+open("apple_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(apple_template) }
 
 all_in_one = base_template << "\n" << google_template << "\n" << apple_template << "\n" << "\n\n" << mvps_tempalte
 open("hosts.#{Time.now.to_i}.txt", 'w') { |io| io.write(all_in_one) }
