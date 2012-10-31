@@ -44,9 +44,13 @@ SITES = [
 	"images-na.ssl-images-amazon.com",
 	# github
 	"a248.e.akamai.net",
+    #alibaba cdn
+    "style.china.alibaba.com",
+    "img.china.alibaba.com",
 	#1
 	"drive.google.com",
 	"www.icloud.com",
+	"i02.c.aliimg.com",
 	#2
 	"lh1.googleusercontent.com",
 	"swcdn.apple.com",
@@ -59,8 +63,8 @@ SITES = [
 	#5
 	"www.google-analytics.com",
 	"devimages.apple.com.edgekey.net",
-        #6
-        "metrics.apple.com"
+    #6
+    "metrics.apple.com"
 ]
 
 # 最终的 IP 地址
@@ -105,6 +109,7 @@ threads.each { |t| t.join }
 base_template = open('template/base_template.ini').read
 google_template = open('template/google_template.ini').read
 apple_template = open('template/apple_template.ini').read
+alibaba_template = open('template/alibaba_template.ini').read
 
 # 组织广告
 mvps_tempalte = ads ? Curl.get('http://winhelp2002.mvps.org/hosts.txt').body_str.strip : ""
@@ -136,6 +141,9 @@ IPS.each do |k, v|
 		apple_template = apple_template.gsub(/\$\{5\}/, v)
 	elsif k.include?('metrics')
 		apple_template = apple_template.gsub(/\$\{6\}/, v)
+	# alibaba
+	elsif k.include?('aliimg')
+		alibaba_template = alibaba_template.gsub(/\$\{1\}/, v)
 	# amazon
 	else
 		base_template << "#{v}	#{k}\n"
@@ -145,5 +153,5 @@ end
 open("google_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(google_template) }
 open("apple_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(apple_template) }
 
-all_in_one = base_template << "\n" << google_template << "\n" << apple_template << "\n" << "\n\n" << mvps_tempalte
+all_in_one = base_template << "\n" << google_template << "\n" << apple_template << "\n" << alibaba_template << "\n" << "\n\n" << mvps_tempalte
 open("hosts.#{Time.now.to_i}.txt", 'w') { |io| io.write(all_in_one) }
