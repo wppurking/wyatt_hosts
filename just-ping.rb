@@ -37,35 +37,8 @@ ads = gets.strip == 'y'
 
 puts "Need Ads!" if ads
 
-SITES = [
-	# amazon
-	"z-ecx.images-amazon.com",
-	"g-ecx.images-amazon.com",
-	"images-na.ssl-images-amazon.com",
-	# github
-	"a248.e.akamai.net",
-    #alibaba cdn
-    "style.china.alibaba.com",
-    "img.china.alibaba.com",
-	#1
-	"drive.google.com",
-	"www.icloud.com",
-	"i02.c.aliimg.com",
-	#2
-	"lh1.googleusercontent.com",
-	"swcdn.apple.com",
-	#3
-	"ssl.gstatic.com",
-	"a1.mzstatic.com",
-	#4
-	"ngrams.googlelabs.com",
-	"a1.phobos.apple.com",
-	#5
-	"www.google-analytics.com",
-	"devimages.apple.com.edgekey.net",
-    #6
-    "metrics.apple.com"
-]
+# 解析要抓取的网站
+SITES = open('./sites').read.strip.lines.to_a.map { |l| l.strip }.select { |line| !line.index('#') }
 
 # 最终的 IP 地址
 IPS = {}
@@ -84,10 +57,11 @@ end
 threads = []
 
 SITES.each do |site|
+	next unless site.strip
 	threads << Thread.new do
 		begin
 			puts "#{Thread.current} begin..."
-			IPS[site] = just_ping site
+			IPS[site] = just_ping site.strip
 			puts "#{Thread.current} end..."
 		rescue Exception => e
 			puts e.message
@@ -149,9 +123,6 @@ IPS.each do |k, v|
 		base_template << "#{v}	#{k}\n"
 	end
 end
-
-open("google_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(google_template) }
-open("apple_template.#{Time.now.to_i}.txt", 'w') { |io| io.write(apple_template) }
 
 all_in_one = base_template << "\n" << google_template << "\n" << apple_template << "\n" << alibaba_template << "\n" << "\n\n" << mvps_tempalte
 open("hosts.#{Time.now.to_i}.txt", 'w') { |io| io.write(all_in_one) }
