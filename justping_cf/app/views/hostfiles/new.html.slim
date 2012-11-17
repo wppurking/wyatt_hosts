@@ -1,0 +1,8 @@
+.span12
+  .alert.alert-info 生成 hosts 文件
+
+.span12.offset3
+  = simple_form_for(@hostfile) do |f|
+    = f.input :location, collection: Hostfile::LOCATION, prompt: "请选择服务器落地地址"
+    = f.input :needAd, as: :boolean
+    = f.button :submit, "生成 hosts", class: 'btn btn-primary'
