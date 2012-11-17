@@ -7,20 +7,25 @@
   table.table.table-bordered.table-condensed
     tr
       td Domain
+      td Template Name
+      td Placeholder
       td Created_At
       td Act
     - @domains.each do |d|
       tr
         td #{d.domain}
+        td #{d.template}
+        td #{d.placeholder}
         td #{time_ago_in_words d.created_at}
         td
           = link_to "Delete", domain_url(d), method: :delete, confirm: "确认删除吗?"
     tr
-      td colspan=3
+      td colspan=5
         .row
           .span6.offset3
             = simple_form_for(@domain) do |f|
               = f.input :domain, input_html: {placeHolder: "z-ecx.images-amazon.com"}
+              = f.input :template_id, collection: tempalte_names
               = f.button :submit, class: 'btn btn-primary'
-              = link_to "返回", root_path, class: 'btn btn-success'
+              = link_to "首页", root_path, class: 'btn btn-success'
 

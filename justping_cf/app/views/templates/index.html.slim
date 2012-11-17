@@ -1,0 +1,18 @@
+.span12
+  table.table.table-bordered.table-condensed
+    tr
+      td Name
+      td Lines
+      td Act
+    - @templates.each do |t|
+      tr
+        td
+          = link_to t.name, template_url(t)
+        td
+          span.badge.badge-info #{t.content.lines.count}
+        td
+          = link_to "Delete", template_url(t), method: :delete, confirm: "确认删除?"
+    tr
+      td colspan=3
+        = link_to "添加模板", new_template_url, class: "btn btn-success"
+        = link_to "首页", root_url, class: 'btn btn-success'

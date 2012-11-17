@@ -5,6 +5,7 @@ JustpingCf::Application.routes.draw do
 
   resources :hostfiles
   resources :domains, only: [:index, :create, :destroy]
+  resources :templates
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

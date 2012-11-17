@@ -1,0 +1,14 @@
+.span12
+  table.table.table-bordered.table-condensed
+    tr
+      td colspan=2
+        = link_to '回退', templates_url, class: 'btn btn-success'
+    tr
+      td Name
+      td #{@template.name}
+    tr
+      td Content
+      td
+        - @template.content.lines do |l|
+          = l.strip
+          br

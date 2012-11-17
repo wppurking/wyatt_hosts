@@ -3,7 +3,6 @@ class DomainsController < ApplicationController
 
   def index
     @domains = Domain.all
-    #@domains = [] unless @domains
     @domain = Domain.new
   end
 

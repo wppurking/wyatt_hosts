@@ -14,5 +14,6 @@
     .alert.alert-warring 还没有 hosts 模板文件
 
 .span12
+  = link_to "模板文件", templates_url, class: 'btn btn-success'
   = link_to "生成 hosts 文件", new_hostfile_url, class: 'btn btn-success'
   = link_to "添加需要获取 IP 的域名", domains_url, class: 'btn btn-success'

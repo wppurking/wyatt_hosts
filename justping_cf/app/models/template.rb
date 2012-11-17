@@ -7,6 +7,8 @@ class Template
   field :name
   field :content
 
+  has_one :domain
+
   validates :name, presence: true, length: {minimum: 1, maximum: 100}
   validates :content, presence: true
 
