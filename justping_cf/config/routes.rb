@@ -7,6 +7,8 @@ JustpingCf::Application.routes.draw do
   resources :domains, only: [:index, :create, :destroy]
   resources :templates
 
+  match "/down" => "hostfiles#down"
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

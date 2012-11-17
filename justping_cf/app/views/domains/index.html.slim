@@ -14,7 +14,7 @@
     - @domains.each do |d|
       tr
         td #{d.domain}
-        td #{d.template}
+        td #{d.template.name}
         td #{d.placeholder}
         td #{time_ago_in_words d.created_at}
         td
@@ -25,7 +25,8 @@
           .span6.offset3
             = simple_form_for(@domain) do |f|
               = f.input :domain, input_html: {placeHolder: "z-ecx.images-amazon.com"}
-              = f.input :template_id, collection: tempalte_names
+              = f.input :template_id, collection: tempaltes, label_method: :name, value_method: :id
+              = f.input :placeholder, input_html: {placeHolder: "${1}"}
               = f.button :submit, class: 'btn btn-primary'
               = link_to "首页", root_path, class: 'btn btn-success'
 

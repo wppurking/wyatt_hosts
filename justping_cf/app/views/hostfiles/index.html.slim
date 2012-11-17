@@ -7,8 +7,10 @@
         td Created_At
       - @hostfiles.each do |file|
         tr
-          td #{file.location}
-          td #{file.content.lines.size}
+          td
+            = link_to "#{file.location}", hostfile_url(file)
+          td
+            span.badge.badge-info #{file.content.lines.count}
           td #{time_ago_in_words file.created_at}
   - else
     .alert.alert-warring 还没有 hosts 模板文件

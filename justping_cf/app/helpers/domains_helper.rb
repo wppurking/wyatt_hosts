@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module DomainsHelper
-  def tempalte_names
-    Template.all.map { |t| t.name }
+  def tempaltes
+    Template.all
   end
 end

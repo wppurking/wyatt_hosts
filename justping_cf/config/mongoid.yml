@@ -1,11 +1,13 @@
 production:
   sessions:
     default:
-      database: justping_cf
+      database: db
+      username: 6da5650d-d11f-447d-a88d-73cc9feb9665
+      password: 1fa1b234-01b2-40ff-96db-5c5afa69cbf1
       hosts:
-        - <%= JSON.parse(ENV['VCAP_SERVICES'] )['mongodb-2.0'].first['credentials']['hostname'] rescue 'localhost'%>:<%= JSON.parse(ENV['VCAP_SERVICES'] )['mongodb-2.0'].first['credentials']['port'] rescue '27017'%>
+        - 172.30.48.68:25233
       options:
-
+        consistency: :strong
 development:
   # Configure available database sessions. (required)
   sessions:

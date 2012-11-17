@@ -9,7 +9,8 @@ class Template
 
   has_one :domain
 
-  validates :name, presence: true, length: {minimum: 1, maximum: 100}
+  validates :name, presence: true, length: {minimum: 1, maximum: 100}, uniqueness: true
   validates :content, presence: true
 
+  index({name: 1}, {unique: true})
 end
