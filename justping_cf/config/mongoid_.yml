@@ -1,3 +1,13 @@
+# 使用非 cloudfoundry 的时候请自行设置
+production:
+  sessions:
+    default:
+      database: justping_cf
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+
 development:
   # Configure available database sessions. (required)
   sessions:
