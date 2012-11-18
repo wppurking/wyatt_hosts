@@ -17,6 +17,7 @@ class HostfilesController < ApplicationController
     end
   end
 
+  # test
   def down
     send_data("ksdjfksdjfkjdsf", filename: 'hottt', type: 'text/txt')
   end

@@ -20,7 +20,7 @@ group :assets do
   gem 'less-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  #gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -33,6 +33,10 @@ gem 'cloudfoundry-jquery-rails'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
+
+group :development do
+  gem 'thin'
+end
 
 # Use unicorn as the app server
 group :production do
