@@ -3,7 +3,7 @@ require "mongoid"
 # 如果是没有 VCAP_SERVICES 的本地环境, 则使用回 mongoid_.yml 文件
 Mongoid.configure do |config|
   config.load!(Rails.root.join("config", "mongoid_.yml")) unless ENV['VCAP_SERVICES']
-  conn_info = {}
+  conn_info = nil
 
 
   if ENV['VCAP_SERVICES']
@@ -28,7 +28,7 @@ Mongoid.configure do |config|
       raise_not_found_error: false
   }
 
-  ip = "#{conn_info[:hostname]}:#{conn_info[:port].to_i}"
+  ip = "#{conn_info['hostname']}:#{conn_info['port'].to_i}"
 
   # debug info
   puts "IP: #{ip}"
