@@ -117,9 +117,9 @@ IPS.each do |k, v|
 	elsif k.include?('mzstatic')
 		apple_template = apple_template.gsub(/\$\{3\}/, v)
 	elsif k.include?('phobos')
+                # 219.76.10.14 fastest
 		# 203.69.113.136 taiwan
-		# 203.69.113.128 taiwan 2
-		apple_template = apple_template.gsub(/\$\{4\}/, '203.69.113.136')
+		apple_template = apple_template.gsub(/\$\{4\}/, '219.76.10.14')
 	elsif k.include?('edgekey')
 		apple_template = apple_template.gsub(/\$\{5\}/, v)
 	elsif k.include?('metrics')
