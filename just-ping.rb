@@ -1,4 +1,4 @@
-require "open-uri"
+require "curb"
 
 # Thanks to  
 #  hostsx https://code.google.com/p/hostsx/  
@@ -37,6 +37,13 @@ ads = gets.strip == 'y'
 
 puts "Need Ads!" if ads
 
+def get(url)
+  http = Curl.get(url) do |http|
+    http.encoding = 'gzip'
+  end
+  http.body_str
+end
+
 # 解析要抓取的网站
 SITES = open('./sites').read.strip.lines.to_a.map { |l| l.strip }.select { |line| !line.index('#') }
 
@@ -44,11 +51,11 @@ SITES = open('./sites').read.strip.lines.to_a.map { |l| l.strip }.select { |line
 IPS = {}
 
 def just_ping(site)
-	html = open("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
+	html = get("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
 	# 新加坡
 	url = html.read.lines.select { |line| line.include?(SERVER_IP) }[0]
 	url = url[(url.index("('") + 2)...url.index("',")]
-	c = open("http://www.just-ping.com/#{url}")
+	c = get("http://www.just-ping.com/#{url}")
 	html = c.read
 	puts html
 	html[(html.rindex(';') + 1)..-1]
