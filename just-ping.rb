@@ -53,10 +53,9 @@ IPS = {}
 def just_ping(site)
 	html = get("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
 	# 新加坡
-	url = html.read.lines.select { |line| line.include?(SERVER_IP) }[0]
+	url = html.lines.select { |line| line.include?(SERVER_IP) }[0]
 	url = url[(url.index("('") + 2)...url.index("',")]
-	c = get("http://www.just-ping.com/#{url}")
-	html = c.read
+	html = get("http://www.just-ping.com/#{url}")
 	puts html
 	html[(html.rindex(';') + 1)..-1]
 end
