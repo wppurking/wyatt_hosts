@@ -5,32 +5,7 @@ require "curb"
 #  MVPS http://winhelp2002.mvps.org/ 
 #  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
 
-server = {
-# Beijing
-"5" => "202.142.24.224",
-# Tokyo
-"4" => "54.248.93.127",
-# Shanghai
-"3" => "61.129.74.156",
-# Singapore
-"2" => "203.142.24.8",
-# HongKong
-"1" => "203.142.29.40"
-}
-
-puts """Chose server ip lcaltion:
-1. HongKong(Good)
-2. Singapore(Good)
-3. Shanghai(Very Good but not always good)
-4. Tokyo(Good)
-5. Beijing(Very Good but not always good)
-"""
-SERVER_IP = server[gets.strip]
-unless SERVER_IP
-  puts "Please input 1/2"
-  exit
-end
-puts "use #{SERVER_IP}"
+puts "According to right now pc Location to find domain ip:"
 
 puts "Need Block Ads? (y/n)"
 ads = gets.strip == 'y'
@@ -51,13 +26,9 @@ SITES = open('./sites').read.strip.lines.to_a.map { |l| l.strip }.select { |line
 IPS = {}
 
 def just_ping(site)
-	html = get("http://www.just-ping.com/index.php?vh=#{site}&c=&s=ping%21&vtt=#{Time.now.to_i}&vhost=_&c=")
-	# 新加坡
-	url = html.lines.select { |line| line.include?(SERVER_IP) }[0]
-	url = url[(url.index("('") + 2)...url.index("',")]
-	html = get("http://www.just-ping.com/#{url}")
-	puts html
-	html[(html.rindex(';') + 1)..-1]
+  # 注意, 需要当前的 PC 的网络进入 VPN 后才会最有效, 不然在本地被防火墙给重置了 dns 就无法处理了
+  result = `dig -4 @8.8.8.8 #{site} +short`
+  result.split("\n").select { |ip| ip =~ /^\d{2,3}/}.first
 end
 
 threads = []
@@ -77,14 +48,6 @@ SITES.each do |site|
 end
 
 threads.each { |t| t.join }
-
-# TODO 
-# 将需要处理的网站分不同的 template 文件
-# 通过上面找到不同文件中的 IP 地址
-# 然后再通过各自的 template 进行替换
-# 最后将所有 template 合并成为一份 hosts 文件
-
-
 
 base_template = open('template/base_template.ini').read
 google_template = open('template/google_template.ini').read
