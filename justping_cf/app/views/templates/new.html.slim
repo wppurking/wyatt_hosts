@@ -1,8 +1,0 @@
-.span12
-  .alert.alert-info 添加模板
-
-.span12.offset3
-  = simple_form_for(@template) do |f|
-    = f.input :name
-    = f.input :content, as: :text, input_html: {class: 'span5', placeHolder: "${1}	0.docs.google.com"}
-    = f.button :submit, class: 'btn btn-primary'
