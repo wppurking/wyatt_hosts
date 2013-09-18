@@ -25,7 +25,8 @@
 127.0.0.1 registration.parallels.com
 127.0.0.1 parallels.com
 127.0.0.1 update.parallels.com
-192.73.232.72 e.easya.cc
+#192.73.232.72 e.easya.cc
+198.211.114.232 e.easya.cc
 125.56.218.10	z-ecx.images-amazon.com
 54.230.124.52	g-ecx.images-amazon.com
 96.7.54.105	style.china.alibaba.com
