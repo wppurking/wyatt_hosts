@@ -27,10 +27,9 @@
 127.0.0.1 update.parallels.com
 
 # EasyAcc reverse proxy
-# digitalocean is down ..
-#162.243.70.141 e.easya.cc
-#162.243.70.141 r.easya.cc
-#162.243.70.141 t.easya.cc
+162.243.70.141 e.easya.cc
+162.243.70.141 r.easya.cc
+162.243.70.141 t.easya.cc
 
 54.230.126.200	images-na.ssl-images-amazon.com
 54.230.124.220	g-ecx.images-amazon.com
