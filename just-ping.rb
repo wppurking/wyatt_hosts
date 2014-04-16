@@ -1,4 +1,5 @@
-require "httparty"
+require 'bundler'
+Bundler.require
 
 # Thanks to  
 #  hostsx https://code.google.com/p/hostsx/  
@@ -20,18 +21,19 @@ IPS = {}
 
 def just_ping(site)
   # 注意, 需要当前的 PC 的网络进入 VPN 后才会最有效, 不然在本地被防火墙给重置了 dns 就无法处理了
-  result = `dig -4 @114.114.114.114 #{site} +short`
+  result = `dig -4 #{site} +short`
   result.split("\n").select { |ip| ip =~ /^\d{2,3}/}.first
 end
 
 SITES.map do |site|
+        sleep(0.02)
 	Thread.new do
 		begin
 			puts "#{Thread.current} begin..."
 			IPS[site] = just_ping site.strip
 			puts "#{Thread.current} end..."
 		rescue Exception => e
-			puts e.message
+			puts "#{e.message} #{site}"
 			IPS[site] = ''
 		end
 	end

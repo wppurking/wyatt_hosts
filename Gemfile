@@ -1,1 +1,2 @@
-gem 'curb'
+source 'https://rubygems.org'
+gem 'httparty'
