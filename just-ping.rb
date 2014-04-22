@@ -49,19 +49,22 @@ mvps_tempalte = ads ? HTTParty.get('http://winhelp2002.mvps.org/hosts.txt', head
 
 IPS.each do |k, v|
 	next if v == ''
-	puts "#{k}		#{v}"
 	# google
 	if k.include?('drive')
-		#google_template = google_template.gsub(/\$\{1\}/, v)
-		google_template = google_template.gsub(/\$\{1\}/, '74.125.128.199')
+    v = '74.125.128.199'
+		google_template = google_template.gsub(/\$\{1\}/, v)
 	elsif k.include?('googleusercontent')
-		google_template = google_template.gsub(/\$\{2\}/, '74.125.128.199')
+    v = '74.125.128.199'
+		google_template = google_template.gsub(/\$\{2\}/, v)
 	elsif k.include?('gstatic')
-		google_template = google_template.gsub(/\$\{3\}/, '74.125.128.199')
+    v = '74.125.128.199'
+		google_template = google_template.gsub(/\$\{3\}/, v)
 	elsif k.include?('googlelabs')
-		google_template = google_template.gsub(/\$\{4\}/, '74.125.128.199')
+    v = '74.125.128.199'
+		google_template = google_template.gsub(/\$\{4\}/, v)
 	elsif k.include?('analytics')
-		google_template = google_template.gsub(/\$\{5\}/, '74.125.128.199')
+    v = '74.125.128.199'
+		google_template = google_template.gsub(/\$\{5\}/, v)
 	# apple
 	elsif k.include?('icloud')
 		apple_template = apple_template.gsub(/\$\{1\}/, v)
@@ -84,6 +87,7 @@ IPS.each do |k, v|
 	else
 		base_template << "#{v}	#{k}\n"
 	end
+	puts "#{k}		#{v}"
 end
 
 all_in_one = base_template << "\n" << google_template << "\n" << apple_template << "\n" << alibaba_template << "\n" << "\n\n" << mvps_tempalte
