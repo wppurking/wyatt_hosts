@@ -52,15 +52,16 @@ IPS.each do |k, v|
 	puts "#{k}		#{v}"
 	# google
 	if k.include?('drive')
-		google_template = google_template.gsub(/\$\{1\}/, v)
+		#google_template = google_template.gsub(/\$\{1\}/, v)
+		google_template = google_template.gsub(/\$\{1\}/, '74.125.128.199')
 	elsif k.include?('googleusercontent')
-		google_template = google_template.gsub(/\$\{2\}/, v)
+		google_template = google_template.gsub(/\$\{2\}/, '74.125.128.199')
 	elsif k.include?('gstatic')
-		google_template = google_template.gsub(/\$\{3\}/, v)
+		google_template = google_template.gsub(/\$\{3\}/, '74.125.128.199')
 	elsif k.include?('googlelabs')
-		google_template = google_template.gsub(/\$\{4\}/, v)
+		google_template = google_template.gsub(/\$\{4\}/, '74.125.128.199')
 	elsif k.include?('analytics')
-		google_template = google_template.gsub(/\$\{5\}/, v)
+		google_template = google_template.gsub(/\$\{5\}/, '74.125.128.199')
 	# apple
 	elsif k.include?('icloud')
 		apple_template = apple_template.gsub(/\$\{1\}/, v)
