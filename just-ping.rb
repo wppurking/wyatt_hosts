@@ -51,19 +51,14 @@ IPS.each do |k, v|
 	next if v == ''
 	# google
 	if k.include?('drive')
-    v = '74.125.128.199'
 		google_template = google_template.gsub(/\$\{1\}/, v)
 	elsif k.include?('googleusercontent')
-    v = '74.125.128.199'
 		google_template = google_template.gsub(/\$\{2\}/, v)
 	elsif k.include?('gstatic')
-    v = '74.125.128.199'
 		google_template = google_template.gsub(/\$\{3\}/, v)
 	elsif k.include?('googlelabs')
-    v = '74.125.128.199'
 		google_template = google_template.gsub(/\$\{4\}/, v)
 	elsif k.include?('analytics')
-    v = '74.125.128.199'
 		google_template = google_template.gsub(/\$\{5\}/, v)
 	# apple
 	elsif k.include?('icloud')
