@@ -6,6 +6,7 @@ Bundler.require
 #  MVPS http://winhelp2002.mvps.org/ 
 #  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
 #  smarthosts https://code.google.com/p/smarthosts/
+#  google-hosts https://github.com/txthinking/google-hosts
 
 puts "According to right now pc Location to find domain ip:"
 
@@ -52,11 +53,14 @@ IPS.each do |k, v|
 	next if v == ''
 	# google
 	if k.include?('g.cn')
+		v = '74.125.31.91'
 		google_template = google_template.gsub(/\$\{1\}/, v)
 		google_template = google_template.gsub(/\$\{2\}/, v)
-		google_template = google_template.gsub(/\$\{3\}/, v)
 		google_template = google_template.gsub(/\$\{4\}/, v)
 		google_template = google_template.gsub(/\$\{5\}/, v)
+	elsif k.include?('gstatic')
+		v = '74.125.31.120'
+		google_template = google_template.gsub(/\$\{3\}/, v)
 	# apple
 	elsif k.include?('icloud')
 		apple_template = apple_template.gsub(/\$\{1\}/, v)
