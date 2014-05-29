@@ -5,6 +5,7 @@ Bundler.require
 #  hostsx https://code.google.com/p/hostsx/  
 #  MVPS http://winhelp2002.mvps.org/ 
 #  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
+#  smarthosts https://code.google.com/p/smarthosts/
 
 puts "According to right now pc Location to find domain ip:"
 
@@ -50,15 +51,11 @@ mvps_tempalte = ads ? HTTParty.get('http://winhelp2002.mvps.org/hosts.txt', head
 IPS.each do |k, v|
 	next if v == ''
 	# google
-	if k.include?('drive')
+	if k.include?('g.cn')
 		google_template = google_template.gsub(/\$\{1\}/, v)
-	elsif k.include?('googleusercontent')
 		google_template = google_template.gsub(/\$\{2\}/, v)
-	elsif k.include?('gstatic')
 		google_template = google_template.gsub(/\$\{3\}/, v)
-	elsif k.include?('googlelabs')
 		google_template = google_template.gsub(/\$\{4\}/, v)
-	elsif k.include?('analytics')
 		google_template = google_template.gsub(/\$\{5\}/, v)
 	# apple
 	elsif k.include?('icloud')
