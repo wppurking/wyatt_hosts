@@ -1,7 +1,7 @@
 require 'bundler'
 Bundler.require
 
-# Thanks to  
+# Thanks for  
 #  hostsx https://code.google.com/p/hostsx/  
 #  MVPS http://winhelp2002.mvps.org/ 
 #  huhamhire-hosts https://code.google.com/p/huhamhire-hosts/
