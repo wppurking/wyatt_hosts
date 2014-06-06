@@ -1,3 +1,6 @@
+# Update at 2014-06-06
+最近 GFW 进行了改变使得 Hosts 翻墙越发的困难, 这个方法应该会被放弃了, 转而使用 PAC + Shadowsocks 了
+
 # Wyatt 自己的 hosts 文件
 
 ps: 脚本需要在 \*nix 下执行, 因为 curb 使用了 curl
