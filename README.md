@@ -1,3 +1,6 @@
+# Update at 2014-08-14
+因为 GFW 的变化, 修改 hosts 已经不靠谱了~ 换方法吧~
+
 # Update at 2014-06-06
 最近 GFW 进行了改变使得 Hosts 翻墙越发的困难, 这个方法应该会被放弃了, 转而使用 PAC + Shadowsocks 了
 
