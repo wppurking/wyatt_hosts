@@ -23,7 +23,8 @@ IPS = {}
 
 def just_ping(site)
   # 注意, 需要当前的 PC 的网络进入 VPN 后才会最有效, 不然在本地被防火墙给重置了 dns 就无法处理了
-  result = `dig -4 #{site} +short`
+  cmd = "dig #{site} -4 +short +tcp @8.8.8.8"
+  result = `#{cmd}`
   result.split("\n").select { |ip| ip =~ /^\d{2,3}/}.first
 end
 
